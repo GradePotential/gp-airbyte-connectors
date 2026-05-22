@@ -1,0 +1,36 @@
+pluginManagement {
+    repositories {
+        maven { url = 'https://airbyte.mycloudrepo.io/public/repositories/airbyte-public-jars/' }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+    plugins {
+        id 'org.jetbrains.kotlin.jvm'        version '2.0.0'
+        id 'com.google.devtools.ksp'         version '2.0.0-1.0.24'
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
+    repositories {
+        maven {
+            name 'airbyte-public-jars'
+            url 'https://airbyte.mycloudrepo.io/public/repositories/airbyte-public-jars/'
+            content {
+                includeGroup 'io.airbyte'
+                includeGroupByRegex 'io\\.airbyte\\..*'
+            }
+        }
+        mavenCentral()
+        maven {
+            name 'jitpack'
+            url 'https://jitpack.io'
+            content { includeGroupByRegex 'com\\.github\\..*' }
+        }
+    }
+}
+
+rootProject.name = 'gp-airbyte-connectors'
+
+include ':sources:source-mssql-ct'
+include ':sources:source-mongodb-v2'

@@ -1,0 +1,29 @@
+# syntax=docker/dockerfile:1
+# linux/amd64 production image. Built from the Gradle distribution tar.
+# Built from the Gradle distribution tar, not the arm64 :dev image.
+
+FROM docker.io/airbyte/java-connector-base:2.0.1@sha256:ec89bd1a89e825514dd2fc8730ba299a3ae1544580a078df0e35c5202c2085b3
+
+# Set permissions for downloaded files
+RUN chmod +x /airbyte/base.sh /airbyte/javabase.sh && \
+    chown airbyte:airbyte /airbyte/base.sh /airbyte/javabase.sh
+
+ENV AIRBYTE_ENTRYPOINT="/airbyte/base.sh"
+ENV APPLICATION="source-mssql-ct"
+
+# Add the connector TAR file and extract it
+COPY build/distributions/source-mssql-ct.tar /tmp/source-mssql-ct.tar
+RUN tar xf /tmp/source-mssql-ct.tar --strip-components=1 -C /airbyte && \
+    rm -rf /tmp/source-mssql-ct.tar && \
+    chown -R airbyte:airbyte /airbyte
+
+# Override JVM heap to respect container limit (16Gi) rather than host memory.
+# Without this, MaxRAMPercentage=75% applies to the GCP VM's total RAM (~64GB),
+# giving a 47GB JVM heap target and causing Kubernetes OOM kills.
+ENV JAVA_TOOL_OPTIONS="-Xmx8g -XX:MaxMetaspaceSize=512m -XX:+ExitOnOutOfMemoryError"
+
+# Set the non-root user
+USER airbyte
+
+# Set entrypoint
+ENTRYPOINT ["/airbyte/base.sh"]

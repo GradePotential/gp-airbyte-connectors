@@ -1,0 +1,44 @@
+plugins {
+    id 'airbyte-java-connector'
+}
+
+airbyteJavaConnector {
+    cdkVersionRequired = '0.48.9'
+    features = ['db-sources', 'datastore-mongo']
+    useLocalCdk = false
+}
+
+application {
+    mainClass = 'io.airbyte.integrations.source.mongodb.MongoDbSource'
+    applicationDefaultJvmArgs = ['-XX:+ExitOnOutOfMemoryError', '-XX:MaxRAMPercentage=75.0']
+}
+
+configurations {
+    dataGenerator.extendsFrom testImplementation
+}
+
+sourceSets {
+    dataGenerator {
+        kotlin { srcDirs('src/test/generator') }
+    }
+}
+
+java {
+    compileJava {
+        options.compilerArgs += "-Xlint:-try,-rawtypes"
+    }
+}
+
+dependencies {
+    implementation 'io.debezium:debezium-embedded:2.6.2.Final'
+    implementation 'io.debezium:debezium-connector-mongodb:2.6.2.Final'
+
+    dataGeneratorImplementation project(':sources:source-mongodb-v2')
+    dataGeneratorImplementation platform('com.fasterxml.jackson:jackson-bom:2.15.2')
+    dataGeneratorImplementation 'com.fasterxml.jackson.core:jackson-databind'
+    dataGeneratorImplementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    dataGeneratorImplementation ('com.github.javafaker:javafaker:1.0.2') { exclude module: 'snakeyaml' }
+    dataGeneratorImplementation 'io.github.oshai:kotlin-logging-jvm:5.1.0'
+    dataGeneratorImplementation 'org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.5'
+    dataGeneratorImplementation 'org.mongodb:mongodb-driver-sync:4.10.2'
+}

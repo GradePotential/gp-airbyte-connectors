@@ -1,0 +1,25 @@
+---
+airbyte:
+  connector:
+    data-channel:
+      medium: ${AIRBYTE_CONNECTOR_DATA_CHANNEL_MEDIUM:STDIO}
+      format: ${AIRBYTE_CONNECTOR_DATA_CHANNEL_FORMAT:JSONL}
+    output:
+      buffer-byte-size-threshold-for-flush: 8192
+    extract:
+      jdbc:
+        mode: ${AIRBYTE_CONNECTOR_EXTRACT_JDBC_MODE:sequential}
+        with-sampling: true
+        table-sample-size: 1024
+        throughput-bytes-per-second: 10000000
+        min-fetch-size: 10
+        default-fetch-size: 1024
+        max-fetch-size: 100000
+        memory-capacity-ratio: 0.6
+        estimated-record-overhead-bytes: 16
+        estimated-field-overhead-bytes: 16
+    check:
+      jdbc:
+        queries:
+          - >-
+            SELECT 1 WHERE 1 = 0;

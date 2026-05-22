@@ -1,0 +1,19 @@
+FROM airbyte/source-mongodb-v2:dev
+
+USER root
+
+COPY scalegrid-ca.crt /tmp/scalegrid-ca.crt
+
+RUN keytool -import -noprompt -trustcacerts \
+    -alias scalegrid-ca \
+    -file /tmp/scalegrid-ca.crt \
+    -keystore "$JAVA_HOME/lib/security/cacerts" \
+    -storepass changeit && \
+    rm /tmp/scalegrid-ca.crt
+
+# Override JVM heap to respect container limit (16Gi) rather than host memory.
+# Without this, MaxRAMPercentage=75% applies to the GCP VM's total RAM (~64GB),
+# giving a 47GB JVM heap target and causing Kubernetes OOM kills.
+ENV JAVA_TOOL_OPTIONS="-Xmx8g -XX:MaxMetaspaceSize=512m -XX:+ExitOnOutOfMemoryError"
+
+USER airbyte

@@ -1,0 +1,13 @@
+# Local deploy config — contains VM IP, SSH key path, GCP project, actor IDs
+deploy.env
+
+.gradle/
+build/
+**/build/
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.DS_Store
+local.properties
