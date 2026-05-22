@@ -8,7 +8,7 @@ Custom Airbyte source connectors for the data pipeline. Each connector is a stan
 
 | Connector | Language | CDK | License | Description |
 |-----------|----------|-----|---------|-------------|
-| `source-mssql-ct` | Kotlin | bulk-cdk `0.2.4` | MIT | Original work. SQL Server with Change Tracking incremental sync. Used where CDC is unavailable (Web Edition). Emits `_ab_cdc_deleted_at` for soft-delete detection. |
+| `source-mssql-ct` | Kotlin | bulk-cdk `0.2.4` | MIT | SQL Server with Change Tracking incremental sync. Used where CDC is unavailable (Web Edition). Emits `_ab_cdc_deleted_at` for soft-delete detection. |
 | `source-mongodb-v2` | Java | java-cdk `0.48.9` | ELv2 | Derived from [Airbyte OSS](https://github.com/airbytehq/airbyte/tree/master/airbyte-integrations/connectors/source-mongodb-v2). Patched for ScaleGrid TLS (custom CA cert) and JVM memory limits. |
 
 ---
