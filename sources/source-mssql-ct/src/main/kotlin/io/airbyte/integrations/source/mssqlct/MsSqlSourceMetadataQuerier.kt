@@ -1,4 +1,4 @@
-/* Copyright (c) 2026 Airbyte, Inc., all rights reserved. */
+/* Copyright (c) 2026 Grade Potential Tutoring. All rights reserved. */
 package io.airbyte.integrations.source.mssqlct
 
 import io.airbyte.cdk.ConfigErrorException

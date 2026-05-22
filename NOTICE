@@ -1,0 +1,36 @@
+GP Airbyte Connectors
+Copyright (c) 2026 Grade Potential Tutoring
+
+---
+
+## source-mssql-ct
+
+Original work. Copyright (c) 2026 Grade Potential Tutoring. Licensed under MIT (see LICENSE).
+
+---
+
+## source-mongodb-v2
+
+This connector is a derivative work based on the Airbyte source-mongodb-v2 connector:
+https://github.com/airbytehq/airbyte/tree/master/airbyte-integrations/connectors/source-mongodb-v2
+
+Original work Copyright (c) Airbyte, Inc. All rights reserved.
+Licensed under the Elastic License 2.0 (ELv2): https://www.elastic.co/licensing/elastic-license
+
+Modifications made by Grade Potential Tutoring:
+- Added ScaleGrid CA certificate to the Java truststore for custom TLS
+- Added JVM memory limits (JAVA_TOOL_OPTIONS) to prevent OOM in constrained containers
+
+The Elastic License 2.0 permits use, modification, and redistribution of this software
+provided you do not offer it as a hosted or managed service to third parties.
+The copyright notices in the source files are preserved as required by that license.
+
+---
+
+## Airbyte CDK
+
+Both connectors depend on the Airbyte Connector Development Kit (CDK):
+https://github.com/airbytehq/airbyte/tree/master/airbyte-cdk
+
+The CDK is licensed under the MIT License.
+Copyright (c) Airbyte, Inc.

@@ -14,7 +14,7 @@ data:
   documentationUrl: https://docs.airbyte.com/integrations/sources/mssql
   githubIssueLabel: source-mssql-ct
   icon: icon.svg
-  license: ELv2
+  license: MIT
   maxSecondsBetweenMessages: 7200
   name: Microsoft SQL Server (Change Tracking)
   connectorBuildOptions:

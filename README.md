@@ -2,12 +2,14 @@
 
 Custom Airbyte source connectors for the data pipeline. Each connector is a standalone Gradle subproject that builds to a Docker image and deploys to a self-hosted Airbyte instance running in Kubernetes on a GCP VM.
 
+**Licensing:** `source-mssql-ct` is original work licensed under MIT. `source-mongodb-v2` is a derivative of [Airbyte's connector](https://github.com/airbytehq/airbyte/tree/master/airbyte-integrations/connectors/source-mongodb-v2) and remains under the [Elastic License 2.0 (ELv2)](https://www.elastic.co/licensing/elastic-license). See [NOTICE](NOTICE) for full attribution.
+
 ## Connectors
 
-| Connector | Language | CDK | Description |
-|-----------|----------|-----|-------------|
-| `source-mssql-ct` | Kotlin | bulk-cdk `0.2.4` | SQL Server with Change Tracking incremental sync. Used where CDC is unavailable (Web Edition). Emits `_ab_cdc_deleted_at` for soft-delete detection. |
-| `source-mongodb-v2` | Java | java-cdk `0.48.9` | MongoDB patched for a custom TLS CA certificate and JVM memory limits. |
+| Connector | Language | CDK | License | Description |
+|-----------|----------|-----|---------|-------------|
+| `source-mssql-ct` | Kotlin | bulk-cdk `0.2.4` | MIT | Original work. SQL Server with Change Tracking incremental sync. Used where CDC is unavailable (Web Edition). Emits `_ab_cdc_deleted_at` for soft-delete detection. |
+| `source-mongodb-v2` | Java | java-cdk `0.48.9` | ELv2 | Derived from [Airbyte OSS](https://github.com/airbytehq/airbyte/tree/master/airbyte-integrations/connectors/source-mongodb-v2). Patched for ScaleGrid TLS (custom CA cert) and JVM memory limits. |
 
 ---
 
